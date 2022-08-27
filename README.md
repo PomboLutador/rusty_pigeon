@@ -11,6 +11,8 @@
   - [Compound types](#compound-types)
     - [Tuple](#tuple)
     - [Array](#array)
+- [Functions](#functions)
+- [Statements and Expressions](#statements-and-expressions)
 - [Compiling](#compiling)
 - [Formatting code](#formatting-code)
 - [Running code](#running-code)
@@ -98,6 +100,36 @@ Dividing integers rounds down to the nearest one.
 - For non-fixed length use the vector type
 - Can be initialized with repeating values as follows: `let a = [3; 5];` (5 repetitions of the value 3)
 - Accesed with square brackets: `let first = a[0];`
+
+# Functions
+
+- Entrypoint into any module is the `main` function
+
+Example: 
+```rust 
+fn foo(x: i32) -> i32 {
+  5
+}
+```
+
+# Statements and Expressions
+
+- Statements do NOT return a value
+- Expressions DO return a value
+- Example of a statement: `let y = 6;`
+- Example of an expression: `5 + 6`
+- By adding a semicolon to an expression it turns into a statement
+
+This is a valid expression which returns 4:
+
+```rust
+{
+  let x = 3;
+  x+1
+}
+```
+
+Note the missing semicolon on the second line of the body which makes sure this is an expression.
 
 # Compiling
 
