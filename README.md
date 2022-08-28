@@ -48,6 +48,40 @@ Complete list: https://doc.rust-lang.org/book/appendix-01-keywords.html
 
 - An inner scope can be defined by encapsulating lines in curly brackets `{}`
 
+In general variables that are known at compile time are stored on the stack while variables which aren't are stored on the heap. Retrieving objects from the heap is more expensive than getting them from the stack. To ensure memory safety Rust won't compile the following piece of code:
+
+```rust
+let s1 = String::from("hello");
+let s2 = s1;
+
+println!("{}, world!", s1);
+```
+
+Since both `s2` and `s1` point to the same data in memory, to make sure the same space in memory is not freed twice, `s1` goes out of scope as soon as we assign it to `s2`. This code would work if the statement to create `s2` would explicitly make a deep copy: `let s2 = s1.clone();`
+
+Note that this behaviour is different for variables which are stored on the stack which are automatically deep-copied:
+
+```rust
+let x = 5;
+let y = x;
+
+println!("x = {}, y = {}", x, y);
+```
+
+A function can take ownership of a variable and deallocate it by simply printing it. The following program won't compile:
+
+```rust
+fn main() {
+    let s = String::from("hello");
+    takes_ownership(s);
+    println!("{s}")
+}
+fn takes_ownership(some_string: String) {
+    println!("{}", some_string);
+}
+```
+
+
 # Types
 
 ## Scalar types
@@ -170,7 +204,7 @@ Note that the `break` keyword can be used with a value after it to return a valu
 
 ```rust
 let mut counter = 0;
-let result = loop {
+let result = loop {   
     counter += 1;
     if counter == 10 {
         break counter * 2;
