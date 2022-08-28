@@ -1,5 +1,5 @@
 fn main() {
-    let n: u8 = 94;
+    let n: u8 = 50;
     let result: u64 = fibonacci(n);
     println!("{n}th fibonacci number: {result}");
 }
