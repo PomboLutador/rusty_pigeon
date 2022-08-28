@@ -13,6 +13,8 @@
     - [Array](#array)
 - [Functions](#functions)
 - [Statements and Expressions](#statements-and-expressions)
+  - [`if` expressions](#if-expressions)
+  - [Loop expression](#loop-expression)
 - [Compiling](#compiling)
 - [Formatting code](#formatting-code)
 - [Running code](#running-code)
@@ -37,6 +39,8 @@ These are some study notes / a cheat sheet obtained by reading the official Rust
 - `let`: Create variable
 - `let mut`: Create mutable variable
 - `const`: Create constant. MUST be annotated with a type  
+- `continue`: Step over loop iteration.
+- `break`: Step out of loop.
   
 Complete list: https://doc.rust-lang.org/book/appendix-01-keywords.html
 
@@ -131,6 +135,56 @@ This is a valid expression which returns 4:
 
 Note the missing semicolon on the second line of the body which makes sure this is an expression.
 
+## `if` expressions
+
+```rust
+if condition {
+  ...;
+} else if {
+  ...;
+} else {
+  ...;
+}
+```
+
+Unlike python the condition HAS to be a bool.
+
+Can be used on the right side of a `let` statement for a ternary condition:
+
+```rust    
+let x = 3;
+let number = if x > 4 {5} else {10}; 
+```
+
+The types of the different branches of the if statement have to be the same. It can't return an integer in one case and a string in another.
+
+## Loop expression
+
+Three types of loops:
+
+- `loop {}`: execute loop until explicitly being told to stop (using `break`)
+- `for item in collection {}`
+- `while condition {}`
+
+Note that the `break` keyword can be used with a value after it to return a value out of a loop:
+
+```rust
+let mut counter = 0;
+let result = loop {
+    counter += 1;
+    if counter == 10 {
+        break counter * 2;
+    }
+};
+```
+
+Loops can be labelled and the `continue` and `break` keywords applied to a labelled loop from inside another loop:
+
+```rust
+'some_loop_label' loop {...}
+...
+break 'some_loop_label'
+```
 # Compiling
 
 - `rustc <module_name>.rs`
